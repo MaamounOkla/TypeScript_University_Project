@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
-
+import { CourseListComponent } from '../../components/course-list/course-list.component';
+ 
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [  CourseListComponent,FormsModule  ],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrls: ['./home.component.scss'],
+  providers: []
 })
 export class HomeComponent {
-
+  
 }

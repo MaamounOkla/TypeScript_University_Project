@@ -1,0 +1,30 @@
+<p-table [value]="courseList" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5, 10, 20]">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Kurskod</th>
+        <th>Kursnamn</th>
+        <th>Ämneskod</th>
+        <th>Nivå</th>
+        <th>Progression</th>
+        <th>Poäng</th>
+        <th>Institutionskod</th>
+        <th>Ämne</th>
+        <th>Studieplan</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-course>
+      <tr>
+          <td>{{ course.courseCode }}</td>
+        <td>{{ course.courseName }}</td>
+        <td>{{ course.subjectCode }}</td>
+        <td>{{ course.level }}</td>
+        <td>{{ course.progression }}</td>
+        <td>{{ course.points }}</td>
+        <td>{{ course.institutionCode }}</td>
+        <td>{{ course.subject }}</td>
+        <td><a [href]="course.syllabus" target="_blank">Syllabus</a></td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <br>
+  <p-button label="sssss" styleClass="p-button-success"></p-button>

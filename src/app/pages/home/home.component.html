@@ -1,3 +1,128 @@
-<p>home works!</p>
- 
-<app-course-list></app-course-list>
+<div class="hero">
+    <div class="background-container">
+        <div class="text-container"> <h1>  Welcome to 
+        </h1>
+            <img src="../../../assets/images/logo-Dark.png" alt="logo">
+           <br>
+        
+        
+        </div>
+      </div>
+  
+    <h3>
+    </h3>
+</div>
+<div class="home-container">
+<div class="slogan">
+    <p-carousel [value]="carouselItems" autoplayInterval="5000" [numVisible]="1" [numScroll]="1" [circular]="true">
+        <ng-template let-item pTemplate="item">
+          <div class="carousel-content">
+            <img [src]="item.image" alt="Carousel image" class="carousel-image">
+            <p>{{ item.text }}</p>
+          </div>
+        </ng-template>
+      </p-carousel>
+      
+</div><br><br>
+<hr>
+
+
+<div class="news-container">
+    <h2>Aktullt</h2>
+    <div class="news">
+        <p-card header="Spännande universitetsnyheter" subheader="Senaste nytt" [style]="{ width: '360px' }">
+            <ng-template pTemplate="header">
+                <img alt="Universitetsnyheter" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
+            </ng-template>
+            <p>
+                Vårt universitet har just rankats bland de topp 10 i världen för sin banbrytande forskning inom förnybar energi. Universitetets nya solenergiprojekt lovar att revolutionera vårt sätt att tänka på hållbar kraft.
+            </p>
+            <ng-template pTemplate="footer">
+                <div class="flex gap-3 mt-1">
+                    <p-button label="Läs Mer" icon="pi pi-external-link" styleClass="p-button-success" iconPos="right"></p-button>
+                </div>
+            </ng-template>
+        </p-card>
+        
+        <p-card header="Innovativt studentprojekt" subheader="Studentprestationer" [style]="{ width: '360px' }">
+            <ng-template pTemplate="header">
+                <img alt="Studentprojekt" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
+            </ng-template>
+            <p>
+                En grupp ingenjörsstudenter har utvecklat en AI-driven robot som kan hjälpa till med dagliga sysslor i hemmet. Detta innovativa projekt har fått internationell uppmärksamhet och flera utmärkelser.
+            </p>
+            <ng-template pTemplate="footer">
+                <div class="flex gap-3 mt-1">
+                    <p-button label="Läs Mer" icon="pi pi-external-link" styleClass="p-button-success" iconPos="right"></p-button>
+                </div>
+            </ng-template>
+        </p-card>
+        
+        <p-card header="Campusutbyggnad" subheader="Nya utvecklingar" [style]="{ width: '360px' }">
+            <ng-template pTemplate="header">
+                <img alt="Campusutbyggnad" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
+            </ng-template>
+            <p>
+                Universitetet har tillkännagett planer för en stor utbyggnad av campus, inklusive nya toppmoderna forskningsanläggningar och gröna ytor som är utformade för att förbättra studentlivet och främja miljöhållbarhet.
+            </p>
+            <ng-template pTemplate="footer">
+                <div class="flex gap-3 mt-1">
+                    <p-button label="Upptäck Mer" icon="pi pi-external-link" styleClass="p-button-success" iconPos="right"></p-button>
+                </div>
+            </ng-template>
+        </p-card>
+        
+</div>
+</div>
+<br><br>
+<hr>
+<br>
+<p-scrollTop 
+target="parent" 
+styleClass="custom-scrolltop" 
+[threshold]="50" 
+icon="pi pi-arrow-up" />
+<div class="card">
+    <h1>Vad våra studenter säger</h1>
+    <p-tabView styleClass="tabview-custom">
+        <p-tabPanel>
+            <ng-template pTemplate="header">
+                <div class="flex align-items-center gap-2">
+                    <span class="font-bold white-space-nowrap m-0">
+                        Anna Svensson
+                    </span>
+                </div>
+            </ng-template>
+            <p>
+                "Jag har haft en fantastisk tid på universitetet. Lärarna är väldigt engagerade och studiemiljön är stödjande och inspirerande."
+            </p>
+        </p-tabPanel>
+        <p-tabPanel>
+            <ng-template pTemplate="header">
+                <div class="flex align-items-center gap-2">
+                    <span class="font-bold white-space-nowrap m-0">
+                        Erik Johansson
+                    </span>
+                </div>
+            </ng-template>
+            <p>
+                "Universitetets campus är vackert och det finns alltid något att göra. Studentföreningarna erbjuder ett stort utbud av aktiviteter och evenemang."
+            </p>
+        </p-tabPanel>
+        <p-tabPanel>
+            <ng-template pTemplate="header">
+                <div class="flex align-items-center gap-2">
+                    <span class="font-bold white-space-nowrap m-0">
+                        Sara Lundqvist
+                    </span>
+                </div>
+            </ng-template>
+            <p>
+                "Jag är så tacksam för alla resurser och möjligheter som universitetet erbjuder. Det har verkligen hjälpt mig att utvecklas både akademiskt och personligt."
+            </p>
+        </p-tabPanel>
+    </p-tabView>
+</div>
+
+
+</div>

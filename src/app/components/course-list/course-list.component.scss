@@ -1,1 +1,30 @@
+ th{
+    background: rgb(237, 255, 222);
+ }
+ .card{
+    background: rgb(237, 255, 222);
+ }
+ .filter{
  
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+ }
+ .filter label {
+    margin: 0 0 1.3rem 0;
+  }
+ .filter > :nth-child(2) {
+    flex: 0.5;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+     gap:20px;
+     }
+  .search{
+    display: flex;
+    flex-direction: column;
+  }
+
+  

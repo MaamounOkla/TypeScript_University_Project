@@ -9,31 +9,27 @@
       <div class="flex filter ">
         <div class="search">
           <p-inputGroup>
-          <p-inputGroupAddon>Filtrera Kurser <p-inputIcon>
-            <i class="pi pi-search"></i>
-          </p-inputIcon></p-inputGroupAddon>
+            <p-inputGroupAddon> <p-inputIcon>
+                <i class="pi pi-search"></i>
+              </p-inputIcon></p-inputGroupAddon>
 
-            <input label="Filtrera Kurser" pInputText type="text" (input)="dataTable.filterGlobal($any($event.target).value, 'contains')"
-              placeholder="Sökord" />
-         
+            <input label="Filtrera Kurser" pInputText type="text"
+              (input)="dataTable.filterGlobal($any($event.target).value, 'contains')" placeholder="Sökord" />
+
           </p-inputGroup>
         </div>
         <!-- Filter Template to add match-menu -->
-        
+
         <p-columnFilter type="text" field="subject" [showClearButton]="false" [showMenu]="false">
           <ng-template pTemplate="filter" let-filterCallback="filterCallback">
-            
-        
-              <p-dropdown 
-                [(ngModel)]="selectedSubject"  
-                [options]="subjectOptions"
-                (onChange)="filterBySubject(selectedSubject)"  
-                placeholder="Ämne" 
-                [showClear]="true">
-              </p-dropdown>
-            </ng-template>
-          </p-columnFilter>
-    
+
+
+            <p-dropdown [(ngModel)]="selectedSubject" [options]="subjectOptions"
+              (onChange)="filterBySubject(selectedSubject)" placeholder="Ämne" [showClear]="true">
+            </p-dropdown>
+          </ng-template>
+        </p-columnFilter>
+
       </div>
 
     </ng-template>
@@ -41,15 +37,22 @@
 
     <!-- Header Template -->
     <ng-template pTemplate="header">
-      <tr>
+      <tr class="table-header">
         <th pSortableColumn="courseCode" style="width: 10%">Kod <p-sortIcon field="courseCode"></p-sortIcon> </th>
         <th pSortableColumn="courseName" style="width: 30%">Kursnamn <p-sortIcon field="courseName"></p-sortIcon></th>
-        <th pSortableColumn="points" style="width: 10%">Poäng <p-sortIcon field="points"></p-sortIcon></th>
-        <th pSortableColumn="subject" style="width: 25%">Ämne <p-sortIcon field="subject"></p-sortIcon></th>
-        <th style="width: 10%">Studieplan</th>
-        <th style="width: 15%">Mitt Ramschema</th>
-      </tr>
-      <tr>
+        <th class="hidden-th" pSortableColumn="points" style="width: 10%">Poäng <p-sortIcon field="points"></p-sortIcon>
+        </th>
+        <th class="hidden-th" pSortableColumn="subject" style="width: 25%">Ämne <p-sortIcon
+            field="subject"></p-sortIcon></th>
+        <th class="hidden-th" style="width: 10%">Studieplan</th>
+        <th style="width: 15%">
+          <a routerLink="/ramschema">Mitt Ramschema
+            <i class="pi pi-external-link" style="margin-right: 4px;"></i>
+          </a>
+        </th>
+
+
+      <tr class="course-filter-fileds">
         <th>
           <p-columnFilter type="text" field="courseCode" [showClearButton]="false" />
         </th>
@@ -69,19 +72,31 @@
 
         </th>
       </tr>
+      <tr class="table-header">
+        <th colspan="1" class="text-right">Antal</th>
+        <th>{{this.courseList.length}} kurser</th>
+        <th class="hidden-th"></th>
+        <th class="hidden-th"></th>
+        <th class="hidden-th"></th>
+        <th class="hidden-th"></th>
+
+      </tr>
+
     </ng-template>
 
     <!-- Body Template, getting courses -->
+
     <ng-template pTemplate="body" let-course>
-      <tr>
+
+      <tr class="responsive-tr">
         <td>{{ course.courseCode }}</td>
         <td>{{ course.courseName }}</td>
-        <td>{{ course.points }}</td>
+        <td>{{ course.points }} HP</td>
         <td>{{ course.subject }}</td>
         <td>
           <a [href]="course.syllabus" target="_blank">
-            Studieplan
-            <i class="pi pi-external-link" style="margin-right: 4px;"></i>
+
+            Kursplan <i class="pi pi-external-link" style="margin-right: 4px;"></i>
           </a>
         </td>
         <td>
@@ -93,7 +108,31 @@
           </button>
         </td>
       </tr>
+      <tr class="hidden-tr">
+        <td> <span class="hidden-tr-span">Kurskod: </span>{{ course.courseCode }}</td>
+        <td><span class="hidden-tr-span">Kursnamn: </span>{{ course.courseName }}</td>
+        <td><span class="hidden-tr-span">Poäng: </span>{{ course.points }} HP</td>
+        <td><span class="hidden-tr-span">Ämne: </span>{{ course.subject }}</td>
+        <td ><span class="hidden-tr-span">Studieplan: </span>
+          <a [href]="course.syllabus" target="_blank">
+
+            Kursplan <i class="pi pi-external-link" style="margin-right: 4px;"></i>
+          </a>
+        </td>
+        <td><span class="hidden-tr-span">Mitt Ramschema: </span>
+          <button type="button" pButton pRipple
+            [icon]="isCourseSelected(course.courseCode) ? 'pi pi-check' : 'pi pi-plus'"
+            [label]="isCourseSelected(course.courseCode) ? 'Lagd till' : 'Lägg till'"
+            [class]="isCourseSelected(course.courseCode) ? 'p-button-success' : 'p-button-primary'"
+            [disabled]="isCourseSelected(course.courseCode)" (click)="selectCourse(course.courseCode)">
+          </button>
+        </td>
+      </tr>
     </ng-template>
+
+
+
+
   </p-table>
   <br>
 </div>

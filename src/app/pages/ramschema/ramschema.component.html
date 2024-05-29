@@ -1,9 +1,35 @@
+ 
+  <div class="intro">
+     <div class="intro-text">
+    <h2>
+     <i> 
+
+       "Hemligheten till din framtid ligger gömd i din dagliga rutin. <br> Organisera dina studier, och du kommer att upptäcka att framgång är en serie av små, välhanterade steg."  </i>
+     </h2>
+  </div>
+    <div class="intro-img">
+
+    </div>
+     
+  </div>
+ 
 <div class="ramschema-container">
-  <p>ramschema works!</p>
+  <div class="ramschema-info">
+  <h2>Välkommen till Ramschema</h2>
+<hr>
+ 
+  <p>På denna sida kan du enkelt hålla koll på dina valda kurser. Ramschema är din digitala plattform där du kan organisera och spara de kurser som är viktiga för ditt studieprogram. Med vårt användarvänliga gränssnitt kan du smidigt se vilka kurser du har valt och hantera ditt schema med lätthet.</p>
+
+  <p>Med Ramschema behöver du inte längre oroa dig för att glömma bort vilka kurser du har registrerat dig för. Vi hjälper dig att hålla koll på din studieplan och sparar listan lokalt på din enhet så slipper du oroa dig och så kan du fokusera på det som verkligen betyder mest - <strong> Din Akademiska Framgång.</strong></p>
+ 
+  
+
+  <p>Utforska Ramschema idag och upptäck hur enkelt det kan vara att hantera dina kurser!</p></div> 
+ <br><br>
   <div class="card">
     <!-- Table Component from Primeng-->
-    <p-table #dataTable dataKey="id" [value]="courseList" [lazyLoadOnInit]="true" sortMode="multiple"
-      [defaultSortOrder]="1" [paginator]="true" paginatorStyleClass="" [rows]="10" [rowsPerPageOptions]="[5, 10, 20]"
+    <p-table #dataTable dataKey="id" [value]="selectedCourseList" [lazyLoadOnInit]="true" sortMode="multiple"
+      [defaultSortOrder]="1" [paginator]="true" paginatorStyleClass="" [rows]="10" [rowsPerPageOptions]="[5, 10, 40]"
       [globalFilterFields]="['courseCode', 'courseName', 'points', 'subject']">
 
       <!-- Caption Template to add search inputfield  -->
@@ -11,7 +37,7 @@
         <div class="flex filter ">
           <div class="search">
             <p-inputGroup>
-              <p-inputGroupAddon>Filtrera Kurser <p-inputIcon>
+              <p-inputGroupAddon> <p-inputIcon>
                   <i class="pi pi-search"></i>
                 </p-inputIcon></p-inputGroupAddon>
 
@@ -31,15 +57,21 @@
 
       <!-- Header Template -->
       <ng-template pTemplate="header">
-        <tr>
+        <tr class="table-header">
           <th pSortableColumn="courseCode" style="width: 10%">Kod <p-sortIcon field="courseCode"></p-sortIcon> </th>
           <th pSortableColumn="courseName" style="width: 30%">Kursnamn <p-sortIcon field="courseName"></p-sortIcon></th>
-          <th pSortableColumn="points" style="width: 10%">Poäng <p-sortIcon field="points"></p-sortIcon></th>
-          <th pSortableColumn="subject" style="width: 25%">Ämne <p-sortIcon field="subject"></p-sortIcon></th>
-          <th style="width: 10%">Studieplan</th>
-          <th style="width: 15%">Mitt Ramschema</th>
+          <th  class="hidden-th" pSortableColumn="points" style="width: 10%">Poäng <p-sortIcon field="points"></p-sortIcon></th>
+          <th  class="hidden-th" pSortableColumn="subject" style="width: 20%">Ämne <p-sortIcon field="subject"></p-sortIcon></th>
+          <th  class="hidden-th" style="width: 10%">Studieplan</th>
+       
+          <th style="width: 7%">
+            <a routerLink="/education">Kurser
+              <i class="pi pi-external-link" style="margin-right: 4px;"></i>
+            </a>
+          </th>
+
         </tr>
-        <tr>
+        <tr class="course-filter-fileds">
           <th>
             <p-columnFilter type="text" field="courseCode" [showClearButton]="false" />
           </th>
@@ -52,21 +84,17 @@
           <th>
             <p-columnFilter type="text" field="subject" [showClearButton]="false" />
           </th>
-          <th>
+      <th></th>
 
-          </th>
-          <th>
-
-          </th>
         </tr>
       </ng-template>
 
       <!-- Body Template, getting courses -->
       <ng-template pTemplate="body" let-course>
-        <tr>
+        <tr class="responsive-tr">
           <td>{{ course.courseCode }}</td>
           <td>{{ course.courseName }}</td>
-          <td>{{ course.points }}</td>
+          <td>{{ course.points }} HP</td>
           <td>{{ course.subject }}</td>
           <td>
             <a [href]="course.syllabus" target="_blank">
@@ -75,11 +103,64 @@
             </a>
           </td>
           <td>
+            <button
+            title="Ta bort kurs"
+                type="button" 
+                pButton 
+                pRipple 
+                icon="pi pi-times" 
+               (click)="removeCourse(course.courseCode)"> 
+            </button>
+        </td>
 
-          </td>
         </tr>
+        <tr class="hidden-tr">
+          <td><span class="hidden-tr-span">Kurskod: </span>{{ course.courseCode }}</td>
+          <td><span class="hidden-tr-span">Kursnamn: </span>{{ course.courseName }}</td>
+          <td><span class="hidden-tr-span">Poäng: </span>{{ course.points }} HP</td>
+          <td><span class="hidden-tr-span">Ämne: </span>{{ course.subject }}</td>
+          <td><span class="hidden-tr-span">Studieplan: </span>
+            <a [href]="course.syllabus" target="_blank">
+              Studieplan
+              <i class="pi pi-external-link" style="margin-right: 4px;"></i>
+            </a>
+          </td>
+          <td> 
+            <button
+            title="Ta bort kurs"
+            label="Ta bort kurs"
+                type="button" 
+                pButton 
+                pRipple 
+                icon="pi pi-times" 
+                [iconPos]="'right'"
+               (click)="removeCourse(course.courseCode)"> 
+            </button>
+        </td>
+
+        </tr>
+
+        
+
       </ng-template>
+      <ng-template pTemplate="footer">
+        <tr  class="tfooter ">
+            <td colspan="1" class="text-right">Antal</td>
+            <td>{{numberOfSelectedCourses }} kurser</td>
+            <td class="hidden-th"></td>
+            <td class="hidden-th"></td>
+            <td class="hidden-th"></td>
+        </tr>
+        <tr  class="tfooter">
+            <td colspan="2" class="text-right">Högeskolepoäng</td>
+      
+            <td>{{totalPoints }} HP</td> <td class="hidden-th"></td>
+            <td class="hidden-th"></td>
+        </tr>
+    </ng-template>
+
     </p-table>
     <br>
-  </div>
+ 
+</div>
 </div>

@@ -1,8 +1,167 @@
-.ramschema-container{
+.intro-img {
+  background-image: url(../../../assets/images/1.jpg);
+  width: 100%;
+  height: 100vh;
 
- 
-        margin: 20vh auto;
-        width: 80%;
-         
-  
+  background-position: center;
+  background-size: cover;
+  filter: brightness(0.4);
 }
+.intro {
+  width: 100%;
+}
+.intro-text {
+  width: 80%;
+  margin: auto;
+}
+
+.intro-text h2 {
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 3rem;
+  height: 100vh;
+}
+
+.text-quote {
+  z-index: 5;
+}
+.ramschema-container {
+  margin: 5rem auto;
+  width: 80%;
+}
+.ramschema-info {
+  background: var(--green-100);
+  padding: 2rem 3rem;
+  border-radius: 0.8rem;
+}
+.ramschema-img img {
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  filter: blur(8);
+}
+.ramschema-img {
+  filter: blur(8);
+}
+button {
+  background-color: var(--red-400);
+}
+button:hover {
+  background-color: var(--red-300);
+}
+p {
+  line-height: 3rem;
+}
+.card {
+  background: var(--green-100);
+  padding: 3rem 0.2rem;
+  border-radius: 0.8rem;
+}
+th {
+  background: var(--green-100);
+}
+.tfooter td {
+  background: var(--green-100);
+  color: var(--blue-900);
+}
+.hidden-tr {
+  display: none;
+}
+@media screen and (max-width: 769px) {
+  .ramschema-container {
+    margin: 20vh auto;
+    width: 95%;
+  }
+    .course-filter-fileds {
+      display: none;
+    }
+    .card {
+      border-radius: 0.8rem;
+      padding: 3rem 0.2rem;
+      margin: 2rem 0;
+    }
+    th {
+      display: flex;
+      width: 30px;
+    }
+
+    tr,
+    td {
+      display: block;
+      width: 100%;
+    }
+
+    .responsive-tr {
+      display: none;
+    }
+
+    .hidden-tr td {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .hidden-tr-span {
+      font-weight: bold;
+    }
+    .hidden-tr {
+      display: block;
+    }
+    .hidden-th {
+      display: none;
+    }
+    .table-header {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+    .tfooter {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+    }
+    
+    .table-header th {
+      width: 34% !important;
+    }
+    tr {
+      font-size: 0.9rem !important;
+    }
+
+    tr {
+      margin: 1rem 0;
+      overflow: scroll;
+      padding: 0.4rem 0.3rem;
+    }
+    td {
+      margin: 0.4rem 0;
+    }
+    button {
+      padding: 0.3rem 0.5rem;
+      font-weight: 400;
+      font-size: 0.8rem;
+      width: fit-content;
+    }
+    .filter {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+    .intro-text h2 {
+     
+      font-size: 1rem;
+      height: 100vh;
+    }
+    .ramschema-info {
+ 
+      padding: 2rem 1rem;
+   
+    }
+  }
+ 

@@ -16,6 +16,7 @@ import { TagModule } from 'primeng/tag';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 @Component({
   selector: 'app-course-list',
   standalone: true,
@@ -27,7 +28,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
     InputGroupModule,
     InputGroupAddonModule,
     ButtonModule,
-    InputTextModule,
+    InputTextModule,RouterLink, RouterLinkActive,
     CommonModule,
     HttpClientModule,
     PaginatorModule,
@@ -49,13 +50,14 @@ export class CourseListComponent implements OnInit {
   selectedCourses: { [courseCode: string]: boolean } = {};
   searchValue: string | undefined;
   subjectOptions: string[] = [];
-  selectedSubject: string | null = null; // Add selectedSubject property
+  
+  selectedSubject: string | null = null; 
   @ViewChild('dataTable') dataTable!: ElementRef;
 
   constructor(private courseService: CourseService) {}
 
   ngOnInit() {
-    // Fetch courses and add them to course list on initialize.
+    // Hämta kurser och lägg till dem i kurslistan vid initialisering.
     this.courseService.getCourses().subscribe((data) => {
       this.courseList = data;
       this.subjectOptions = Array.from(
@@ -64,13 +66,19 @@ export class CourseListComponent implements OnInit {
     });
   }
 
-  //Add course to ramschema
+  // Lägg till kurs i Ramschema
   selectCourse(courseCode: string) {
+    // Växla knappen för kurser
     this.selectedCourses[courseCode] = !this.selectedCourses[courseCode];
-        // Save the selected courses to local storage
-        localStorage.setItem('selectedCourses', JSON.stringify(this.selectedCourses));
-        //Send the new method to add new course to ramschema with help of course service. 
-        this.courseService.addCourseToRamSchema(courseCode);
+    
+    // Spara de valda kurserna i localstroage
+    const localStorageCourses = JSON.parse(localStorage.getItem('selectedCourses') || '{}');
+    localStorageCourses[courseCode] = this.selectedCourses[courseCode];
+    localStorage.setItem('selectedCourses', JSON.stringify(localStorageCourses));
+  
+    // Skicka metoden för att lägga till ny kurs i ramschema med hjälp av course-service
+    this.courseService.addCourseToRamSchema(courseCode);
+    console.log("Detta är koden", courseCode);
   }
 
   isCourseSelected(courseCode: string): boolean {
@@ -82,14 +90,14 @@ export class CourseListComponent implements OnInit {
 
   filterBySubject(selectedSubject: string |null ) {
     if (selectedSubject) {
-      // Filter the course list based on the selected subject
+      // Filtrera kurslistan baserat på det valda ämnet
       const filteredCourses = this.courseList.filter(course => course.subject === selectedSubject);
-      // Assign the filtered courses to the table
+      // Tilldela de filtrerade kurserna till tabellen
       this.courseList = filteredCourses;
-      // Clear the selected subject
+      // Rensa det valda ämnet
       this.selectedSubject = null;
     } else {
-      // If no subject is selected, reset the course list to show all courses
+      // Om inget ämne är valt, återställ kurslistan för att visa alla kurser
       this.courseService.getCourses().subscribe((data) => {
         this.courseList = data;
       });

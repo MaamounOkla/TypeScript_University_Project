@@ -1,5 +1,70 @@
 .education-container{
-    margin: 25vh auto;
+    margin: 20vh auto;
     width: 80%;
      
+}
+.intro-text {
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    transform: translate(-50%, -20%);
+    color: white;
+    width: 50%;
+    text-align: left;
+    z-index: 2; 
+    font-size: 2rem;
+}
+
+.education-info {
+    margin: 2rem 0;
+    background: var(--blue-100);
+    padding: 2rem 3rem;
+    border-radius: 1rem;
+}
+
+.education-hero {
+    width: 100%;
+}
+
+.video-container {
+    position: relative; /* Ensures the absolute positioning of .intro-text is relative to this container */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden; /* Ensures that if the video overflows, it won't cause scrollbars */
+}
+
+video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures that the video covers the container without stretching */
+    filter: brightness(0.4); /* Ensures the video is dimmed so text is more readable */
+}
+p{
+        line-height: 3rem;
+}
+@media screen and (max-width: 769px) {
+    .intro-text {
+        position: absolute;
+        top: 30%;
+        left: 30%;
+        transform: translate(-50%, -20%);
+        color: white;
+        width: 50%;
+        text-align: left;
+        z-index: 2; 
+        font-size: 0.8rem;
+    }
+    .education-info {
+        background: var(--blue-100);
+        padding: 2rem 1rem;
+        border-radius: 1rem;
+    }
+    .education-container{
+        margin: auto;
+        width: 95%;
+         
+    }
 }

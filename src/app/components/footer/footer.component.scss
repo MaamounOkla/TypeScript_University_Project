@@ -1,60 +1,124 @@
-footer {
-    padding: 4rem;
-    color: white;
-    background: linear-gradient(rgb(1, 18, 86), rgb(41, 1, 151), rgb(1, 18, 86));
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
-    margin-top: 2rem;
+footer{
+  background-image: linear-gradient(rgba(5, 24, 101, 0.553), rgba(28, 10, 78, 0.734), rgba(5, 24, 101, 0.553)), url(../../../assets/images/3.jpg);
+  background-size: cover;
+  background-position: center;
+  backdrop-filter: blur(8px) brightness(0.7);
+  color: rgb(235, 229, 255);
+  font-size: 1.4rem;
+  padding: 1rem 4rem;
+}
+.footer-container {
+
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content:center;
+  align-items: center;
+ 
+}
+
+footer h1 {
+  font-size: 1.2rem;
+}
+
+footer h2 {
+  font-size: 1rem;
+}
+
+footer p, footer ul, footer h2 {
+  margin: 0.5rem 0;
+}
+
+.footer-info, .footer-links, .footer-social   {
+  flex: 0.3;
+  text-align: center;
+  min-width: 250px;
+}
+.footer-social{
+  display: flex;
+  justify-content: center;
+}
+@layer primeng {
+  .pi {
+    font-size: 2rem;
   }
-  footer h1 {
-    font-size: 1.2rem;
-  }
-  footer h2 {
-    font-size: 1rem;
-  }
-  .footer-info {
-    flex: 1;
-    width: 100%;
-    min-width: 200px;
-  }
-  .footer-logo {
-    height: auto;
-  }
-  footer img {
-    width: 300px; /* Fills the entire width of its container */
-    height: auto;
-    box-shadow: 0px 0px 5px rgb(141, 177, 255);
-    transition: 0.2s ease;
-    border: 1px solid lightblue;
-    padding: 0.7rem;
-  }
-  footer img:hover {
-    width: 300px; /* Fills the entire width of its container */
-    height: auto;
-    box-shadow: 0px 0px 20px rgb(184, 229, 245);
-  }
-  
-  a, a:visited, a:hover, a:active {
-    color: inherit;
-  }
-  @media screen and (max-width: 769px) {
-    footer img {
-      width: 150px; /* Fills the entire width of its container */
-      height: auto;
-    }
-    footer img:hover{
-  width: 160px;
-    }
-    footer {
-      padding: 1.4rem;
-    }
-    footer h1 {
-      font-size: 1rem;
-    }
-    footer h2 {
-      font-size: 0.9rem;
-    }
-  }
-  
+}
+.footer-logo {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.footer-logo img {
+  width: 350px;
+  height: auto;
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links li {
+  margin: 0.5rem 0;
+}
+
+.footer-links a {
+  color: rgb(222, 211, 255);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: #ff9797;
+}
+
+.footer-social .social-icons {
+  display: flex;
+  gap: 1rem;
+}
+
+.footer-social .social-icons a {
+  color: rgb(138, 196, 254);
+  font-size: 1.5rem;
+  transition: color 0.3s;
+}
+
+.footer-social .social-icons a:hover {
+  color: #39f4fe;
+  scale: 1.1;
+}
+.credits {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.credits h1 {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.credits a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Add some spacing between the icon and text */
+  font-size: 1rem;
+  min-width: fit-content;
+  border-radius: 0.4rem;
+  color: white;
+  padding: 0.4rem;
+  box-shadow: 0 0 10px rgb(235, 244, 255);
+  text-decoration: none; /* Remove underline from link */
+}
+
+.credits .github-icon {
+  font-size: 1rem; /* Adjust the font size to make the icon smaller */
+}
+.credits a:hover {
+  color: #39f4fe;
+  scale: 1.1;
+}

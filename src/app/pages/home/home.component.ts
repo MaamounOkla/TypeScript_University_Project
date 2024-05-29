@@ -7,11 +7,11 @@ import { FormsModule } from '@angular/forms';
 import { CarouselModule } from 'primeng/carousel';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
-        
+import { InplaceModule } from 'primeng/inplace';     
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [  FormsModule, CardModule, ButtonModule, CarouselModule ,ScrollTopModule ,TabViewModule, BadgeModule, AvatarModule],
+  imports: [InplaceModule,  FormsModule, CardModule, ButtonModule, CarouselModule ,ScrollTopModule ,TabViewModule, BadgeModule, AvatarModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   providers: []

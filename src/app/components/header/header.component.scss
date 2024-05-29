@@ -1,52 +1,57 @@
 nav {
   width: 100%;
- display: flex;
- justify-content: center;
- align-items: center;
-     min-height: 10vh;
-  background: linear-gradient(rgba(163, 178, 238, 0.215), rgba(41, 1, 151, 0.447), rgba(1, 18, 86, 0.452));
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background: linear-gradient(rgba(18, 48, 167, 0.596), rgba(19, 2, 72, 0.536), rgba(1, 18, 86, 0.947));
   backdrop-filter: blur(8px) brightness(1.1);
-  box-shadow: 10px 0 10px 10px rgba(118, 122, 249, 0.552);
-  color: rgba(255, 255, 255, 0.6);
   position: absolute;
-  z-index: 1;
+  z-index: 10;
+  font-weight: bold;
+  
 }
 
 nav ul {
   display: flex;
-  justify-content: center;
+  flex: 1;
+  justify-content: flex-start;
   align-items: center;
-  width: fit-content;
   list-style: none;
-  gap: gap 2rem;
+  padding: 0;
+  margin: 0;
 }
+
 nav img {
-  width: 100px;
+  width: 70px;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  flex: 0.1;
+  align-items: center;
 }
 
 nav li {
-  margin: 1rem;
-
   cursor: pointer;
 }
 
-nav a {
-  border-radius: 0.4rem;
-  padding: 1rem;
+.nav-a {
+  padding: 1.5rem;
   text-decoration: none;
   transition: 300ms ease-in-out;
+  color: var(--blue-100);
 }
 
 nav a:hover {
-  border-radius: 0.4rem;
-  text-decoration: none;
+  background: var(--blue-100); 
+  color: black;
 }
 
 .current {
   background: rgb(174, 182, 255) !important;
 }
 
-/* resonsive nav burger */
 .burger {
   display: none;
   flex-direction: column;
@@ -56,9 +61,8 @@ nav a:hover {
 .line {
   width: 25px;
   height: 3px;
-  background-color: black;
   margin: 3px 0;
-  background: #ffe641;
+  background: var(--blue-100);
 }
 
 @media only screen and (max-width: 769px) {
@@ -74,18 +78,12 @@ nav a:hover {
     display: flex;
     flex-direction: column;
     position: absolute;
-
     left: 0;
     top: 5rem;
-    background: linear-gradient(
-      rgb(1, 18, 86),
-      rgb(41, 1, 151),
-      rgb(1, 18, 86)
-    );
+    background: linear-gradient(rgb(1, 18, 86), rgb(41, 1, 151), rgb(1, 18, 86));
     z-index: 5;
     width: 70%;
     padding: 10px 5px;
-    color: #ffe641;
   }
 
   nav li {
@@ -106,7 +104,7 @@ nav a:hover {
   }
 
   .current {
-    background: rgb(174, 182, 255) !important;
+    background: rgb(174, 182, 255) ;
     padding: 1rem;
   }
 }

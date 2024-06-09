@@ -3,12 +3,15 @@ nav {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  background: linear-gradient(rgba(18, 48, 167, 0.596), rgba(19, 2, 72, 0.536), rgba(1, 18, 86, 0.947));
+  background: linear-gradient(
+    rgba(18, 48, 167, 0.596),
+    rgba(19, 2, 72, 0.536),
+    rgba(1, 18, 86, 0.947)
+  );
   backdrop-filter: blur(8px) brightness(1.1);
   position: absolute;
   z-index: 10;
   font-weight: bold;
-  
 }
 
 nav ul {
@@ -32,30 +35,29 @@ nav img {
   align-items: center;
 }
 
-nav li {
-  cursor: pointer;
-}
-
 .nav-a {
+  cursor: pointer;
   padding: 1.5rem;
   text-decoration: none;
   transition: 300ms ease-in-out;
   color: var(--blue-100);
+  width: 100%;
 }
 
-nav a:hover {
-  background: var(--blue-100); 
+.nav-a:hover {
+  background: var(--blue-100);
   color: black;
 }
 
 .current {
-  background: rgb(174, 182, 255) !important;
+  background: var(--blue-400) !important;
 }
 
 .burger {
   display: none;
   flex-direction: column;
   cursor: pointer;
+  padding: 1rem;
 }
 
 .line {
@@ -73,38 +75,47 @@ nav a:hover {
   .burger {
     display: flex;
   }
-
+  .logo{
+    flex: 1;
+    justify-content: flex-start;
+  }
+  nav {
+    display: flex;
+    flex-direction: row-reverse;
+    width: 100%;
+  }
   nav ul.active {
     display: flex;
     flex-direction: column;
     position: absolute;
-    left: 0;
+    right: 0;
     top: 5rem;
-    background: linear-gradient(rgb(1, 18, 86), rgb(41, 1, 151), rgb(1, 18, 86));
+    background: linear-gradient(
+      rgb(1, 18, 86),
+      rgb(41, 1, 151),
+      rgb(1, 18, 86)
+    );
     z-index: 5;
     width: 70%;
-    padding: 10px 5px;
+    padding: 10px 0;
   }
 
   nav li {
     margin-right: 0;
     margin-bottom: 10px;
     padding: 1rem 0;
-    width: 100%;
+    width: 100% !important;
+    text-align: end;
   }
 
-  nav a {
-    background: none;
-    color: #ffde08;
-    width: 100%;
-  }
-
-  nav a:hover {
-    background: none;
+  .nav-a {
+    padding: 1.5rem;
+    text-decoration: none;
+    transition: 300ms ease-in-out;
+    color: var(--blue-100);
   }
 
   .current {
-    background: rgb(174, 182, 255) ;
     padding: 1rem;
   }
 }

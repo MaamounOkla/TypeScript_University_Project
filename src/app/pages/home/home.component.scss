@@ -181,6 +181,11 @@ hr {
   }
 }
 @media screen and (max-width: 769px) {
+  .background-container {
+   
+    background-attachment: local;
+  
+  }
   .home-container {
     width: 100%;
     padding: 0 0.5rem;
@@ -191,6 +196,10 @@ hr {
     width: 100%;
     padding: 0 0.2rem;
     margin: 0 auto;
+  }
+
+  .slogan img{
+    height: 300px;
   }
   .card {
     padding: 0;

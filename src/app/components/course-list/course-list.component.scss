@@ -27,16 +27,15 @@ th {
   display: flex;
   flex-direction: column;
 }
- 
-.hidden-tr{
-   display: none;
-  }
+
+.hidden-tr {
+  display: none;
+}
 @media screen and (max-width: 769px) {
   .course-filter-fileds {
     display: none;
   }
   .card {
- 
     border-radius: 0.8rem;
     padding: 3rem 0.2rem;
     margin: 2rem 0;
@@ -51,30 +50,31 @@ th {
     display: block;
     width: 100%;
   }
-  
-  .responsive-tr{
-   display: none;
+
+  .responsive-tr {
+    display: none;
   }
-  
-  .hidden-tr  td{
-   display: flex;
-   flex-direction: column;
-   gap: 0.4rem;
+
+  .hidden-tr td {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
   }
-  .hidden-tr  {
-   display: block;
-  
+  .hidden-tr {
+    display: block;
   }
-  .hidden-tr-span{
-   font-weight: bold;
+  .hidden-tr-span {
+    font-weight: bold;
   }
- 
- 
+
+  //överskriva PrimeNG dropdown meny för att inte ha nowrap. 
+  :host ::ng-deep .p-dropdown-item {
+    white-space: normal !important;
+  }
  
  
   .hidden-th {
     display: none;
-
   }
   .table-header {
     display: flex;
@@ -82,15 +82,13 @@ th {
     width: 100%;
   }
   .table-header th {
-    width: 34% !important;
+    width: 100% !important;
   }
-  tr{
-   font-size: 0.9rem !important;
+  tr {
+    font-size: 0.9rem !important;
   }
- 
 
   tr {
-  
     margin: 1rem 0;
     overflow: scroll;
     padding: 0.4rem 0.3rem;

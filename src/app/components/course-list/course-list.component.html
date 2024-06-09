@@ -1,9 +1,9 @@
 <div class="card">
   <!-- Table Component from Primeng-->
   <p-table #dataTable dataKey="id" [value]="courseList" [lazyLoadOnInit]="true" sortMode="multiple"
-    [defaultSortOrder]="1" [paginator]="true" paginatorStyleClass="" [rows]="10" [rowsPerPageOptions]="[5, 10, 20]"
+    [defaultSortOrder]="1"  [paginator]="true" paginatorStyleClass="" [rows]="10" [rowsPerPageOptions]="[5, 10, 20]"
     [globalFilterFields]="['courseCode', 'courseName', 'points', 'subject']">
-
+    <p-toast></p-toast>
     <!-- Caption Template to add search inputfield  -->
     <ng-template pTemplate="caption" style="padding: 0;">
       <div class="flex filter ">
@@ -100,7 +100,9 @@
           </a>
         </td>
         <td>
-          <button type="button" pButton pRipple
+          <p-toast   />
+
+          <button pButton pRipple type="button" pButton pRipple
             [icon]="isCourseSelected(course.courseCode) ? 'pi pi-check' : 'pi pi-plus'"
             [label]="isCourseSelected(course.courseCode) ? 'Lagd till' : 'Lägg till'"
             [class]="isCourseSelected(course.courseCode) ? 'p-button-success' : 'p-button-primary'"
@@ -113,7 +115,7 @@
         <td><span class="hidden-tr-span">Kursnamn: </span>{{ course.courseName }}</td>
         <td><span class="hidden-tr-span">Poäng: </span>{{ course.points }} HP</td>
         <td><span class="hidden-tr-span">Ämne: </span>{{ course.subject }}</td>
-        <td ><span class="hidden-tr-span">Studieplan: </span>
+        <td><span class="hidden-tr-span">Studieplan: </span>
           <a [href]="course.syllabus" target="_blank">
 
             Kursplan <i class="pi pi-external-link" style="margin-right: 4px;"></i>
@@ -134,5 +136,6 @@
 
 
   </p-table>
+ 
   <br>
 </div>

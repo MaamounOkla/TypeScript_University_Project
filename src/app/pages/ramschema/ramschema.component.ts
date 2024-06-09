@@ -17,7 +17,10 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-ramschema',
   standalone: true,
@@ -36,7 +39,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
     TableModule,
     IconFieldModule,
     InputIconModule,
-    FloatLabelModule
+    FloatLabelModule,ToastModule
   ],
   templateUrl: './ramschema.component.html',
   styleUrls: [
@@ -45,14 +48,16 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
     '../../../../node_modules/primeicons/primeicons.css',
     './ramschema.component.scss',
   ],
+  providers: [MessageService]
 })
 export class RamschemaComponent implements OnInit {
   courseList: Course[] = [];
   selectedCourseList: Course[] = [];
   totalPoints: number = 0;
   numberOfSelectedCourses : number =0;
-  constructor(private courseService: CourseService) {}
+  constructor(private courseService: CourseService, private messageService: MessageService) {}
 
+   
   ngOnInit() {
     this.courseService.getCourses().subscribe((data) => {
       this.courseList = data;
@@ -69,6 +74,11 @@ export class RamschemaComponent implements OnInit {
            // Räkna antal valda kurser
            this.numberOfSelectedCourses = this.NumberOfSelectedCourses();
     });
+  }
+
+  showSuccess() {
+    this.messageService.add({ severity: 'success', summary: 'Lyckad', detail: 'Kursen togs bort från Mitt Ramschema' });
+   
   }
   calculateTotalPoints(): number {
     return this.selectedCourseList.reduce((total, course) => total + course.points, 0);
@@ -96,5 +106,61 @@ export class RamschemaComponent implements OnInit {
     this.courseService.removeCourseFromRamSchema(courseCode);
     
     console.log(`Kurs med kod ${courseCode} borttagen från lokal lagring.`);
+    // Visa meddelande att det gick bra att ta bort kursen
+    this.showSuccess();
   }
+  exportPDF() {
+    const doc = new jsPDF();
+    const title = "Mitt Ramschema";
+     // Hämta nuvarande datum i svensk format
+     const currentDate = new Date().toLocaleString('sv-SE');
+  
+    // Lägg till titel och nuvarande datum
+    doc.setFontSize(18);
+    doc.text(title, 14, 22);
+    doc.setFontSize(10);
+    doc.text(`PDF Skapad: ${currentDate}`, 14, 30);
+  
+    const head = [['Kod', 'Kursnamn', 'Poäng', 'Ämne', 'Studieplan']];
+    const data = this.selectedCourseList.map(course => [
+      course.courseCode,
+      course.courseName,
+      `${course.points} HP`,
+      course.subject,
+      
+    ]);
+  
+    // Lägg till tabell med startposition
+    doc.autoTable({
+      head: head,
+      body: data,
+      // Startposition för tabellen
+      startY: 40, 
+      didDrawCell: (data: any) => {
+        if (data.column.index === 4 && data.cell.section === 'body') {
+          const link = this.selectedCourseList[data.row.index].syllabus;
+          doc.setTextColor(0, 0, 255);
+          doc.textWithLink('Studieplan', data.cell.x + 2, data.cell.y + 10, { url: link });
+          doc.setTextColor(0, 0, 0);
+        }
+      }
+    });
+  
+    // Lägg till sidfot med totala poäng i slutet av tabellen
+    const totalPoints = `Totala högeskolepoäng: ${this.totalPoints} HP`;
+    const finalY = (doc as any).lastAutoTable.finalY || 0;
+ 
+    doc.setFontSize(15);
+    doc.text(totalPoints, 14, finalY + 20); 
+ 
+    const numberOfSelectedCourses = `Antal Kurser: ${this.numberOfSelectedCourses}`;
+    
+    doc.setFontSize(15);
+    doc.text(numberOfSelectedCourses, 14, finalY + 10); 
+  
+    doc.save('Ramschema.pdf');
+  }
+  
+  
+  
 }

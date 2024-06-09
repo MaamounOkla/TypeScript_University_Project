@@ -11,8 +11,9 @@
   width: 100%;
 }
 .intro-text {
-  width: 80%;
-  margin: auto;
+  width: 100%;
+  
+ 
 }
 
 .intro-text h2 {
@@ -23,7 +24,10 @@
   align-items: center;
   color: white;
   font-size: 3rem;
+
   height: 100vh;
+  padding: 0 4rem;
+  text-shadow: 2px 2px 5px #effdfc;
 }
 
 .text-quote {
@@ -53,6 +57,23 @@ button {
 button:hover {
   background-color: var(--red-300);
 }
+.export-button{
+  background: var(--green-500);
+  padding: 0.5rem 0.5rem;
+  margin: 0.5rem 0;
+  cursor: pointer;
+  transition: 0.3s ease;
+  border: none;
+ 
+  border-radius: 0.3rem;
+  width: fit-content;
+}
+.export-button:hover{
+  background: var(--green-400);
+ 
+
+
+}
 p {
   line-height: 3rem;
 }
@@ -70,6 +91,11 @@ th {
 }
 .hidden-tr {
   display: none;
+}//Skriv över Primgng initiala stil
+:host ::ng-deep .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+  background: var(--green-100) !important;
+ 
+  color: #0f766e !important;
 }
 @media screen and (max-width: 769px) {
   .ramschema-container {
@@ -155,8 +181,10 @@ th {
     }
     .intro-text h2 {
      
-      font-size: 1rem;
-      height: 100vh;
+      font-size: 1.2rem;
+      font-weight: 400;
+      height: 100vh;  letter-spacing: 0.5px;
+      line-height: 25px;
     }
     .ramschema-info {
  

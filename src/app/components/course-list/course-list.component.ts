@@ -16,12 +16,13 @@ import { TagModule } from 'primeng/tag';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-course-list',
   standalone: true,
   imports: [
-    FormsModule,
+    FormsModule,ToastModule,
     TagModule,
     DropdownModule,
     MultiSelectModule,
@@ -43,7 +44,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
     '../../../../node_modules/primeng/resources/primeng.min.css',
     '../../../../node_modules/primeicons/primeicons.css',
     './course-list.component.scss',
-  ],
+  ],  providers: [MessageService]
 })
 export class CourseListComponent implements OnInit {
   courseList: Course[] = [];
@@ -54,7 +55,7 @@ export class CourseListComponent implements OnInit {
   selectedSubject: string | null = null; 
   @ViewChild('dataTable') dataTable!: ElementRef;
 
-  constructor(private courseService: CourseService) {}
+  constructor(private courseService: CourseService , private messageService: MessageService) {}
 
   ngOnInit() {
     // Hämta kurser och lägg till dem i kurslistan vid initialisering.
@@ -65,7 +66,11 @@ export class CourseListComponent implements OnInit {
       );
     });
   }
-
+  showSuccess() {
+    this.messageService.add({ severity: 'success', summary: 'Lyckad', detail: 'Kursen har lagts till i Mitt Ramschema' });
+   
+  }
+  
   // Lägg till kurs i Ramschema
   selectCourse(courseCode: string) {
     // Växla knappen för kurser
@@ -79,6 +84,8 @@ export class CourseListComponent implements OnInit {
     // Skicka metoden för att lägga till ny kurs i ramschema med hjälp av course-service
     this.courseService.addCourseToRamSchema(courseCode);
     console.log("Detta är koden", courseCode);
+    // Visa att det gick bra att lägga till ny kur i ramschema
+    this.showSuccess();
   }
 
   isCourseSelected(courseCode: string): boolean {

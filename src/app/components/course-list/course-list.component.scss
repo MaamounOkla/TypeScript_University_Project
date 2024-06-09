@@ -31,6 +31,12 @@ th {
 .hidden-tr {
   display: none;
 }
+//Skriv över Primgng initiala stil
+:host ::ng-deep .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
+  background: var(--blue-100) !important;
+ 
+  color: #0f766e !important;
+}
 @media screen and (max-width: 769px) {
   .course-filter-fileds {
     display: none;

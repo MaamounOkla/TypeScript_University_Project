@@ -8,6 +8,7 @@ import { CarouselModule } from 'primeng/carousel';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { InplaceModule } from 'primeng/inplace';     
+
 @Component({
   selector: 'app-home',
   standalone: true,

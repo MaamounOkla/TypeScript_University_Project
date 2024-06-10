@@ -1,10 +1,10 @@
 import { Component, ViewChild, ElementRef , AfterViewInit } from '@angular/core';
 import { CourseListComponent } from '../../components/course-list/course-list.component';
-
+import { ScrollTopModule } from 'primeng/scrolltop';
 @Component({
   selector: 'app-education',
   standalone: true,
-  imports: [CourseListComponent],
+  imports: [CourseListComponent,ScrollTopModule],
   templateUrl: './education.component.html',
   styleUrl: './education.component.scss'
 })

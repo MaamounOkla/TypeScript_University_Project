@@ -21,6 +21,7 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+ import { ScrollTopModule } from 'primeng/scrolltop';
 @Component({
   selector: 'app-ramschema',
   standalone: true,
@@ -36,7 +37,7 @@ import { MessageService } from 'primeng/api';
     CommonModule,
     HttpClientModule,
     PaginatorModule,
-    TableModule,
+    TableModule,ScrollTopModule,
     IconFieldModule,
     InputIconModule,
     FloatLabelModule,ToastModule
@@ -112,54 +113,80 @@ export class RamschemaComponent implements OnInit {
   exportPDF() {
     const doc = new jsPDF();
     const title = "Mitt Ramschema";
-     // Hämta nuvarande datum i svensk format
-     const currentDate = new Date().toLocaleString('sv-SE');
-  
+    const currentDate = new Date().toLocaleString('sv-SE');
+
     // Lägg till titel och nuvarande datum
     doc.setFontSize(18);
     doc.text(title, 14, 22);
     doc.setFontSize(10);
     doc.text(`PDF Skapad: ${currentDate}`, 14, 30);
-  
+
     const head = [['Kod', 'Kursnamn', 'Poäng', 'Ämne', 'Studieplan']];
     const data = this.selectedCourseList.map(course => [
-      course.courseCode,
-      course.courseName,
-      `${course.points} HP`,
-      course.subject,
-      
+        course.courseCode,
+        course.courseName,
+        `${course.points} HP`,
+        course.subject,
+        "" // Placeholder for "Studieplan" link
     ]);
-  
-    // Lägg till tabell med startposition
+
+    // Calculate the starting Y position for the table
+    let startY = 40;
+
+    // Draw the table with automatic page breaks
     doc.autoTable({
-      head: head,
-      body: data,
-      // Startposition för tabellen
-      startY: 40, 
-      didDrawCell: (data: any) => {
-        if (data.column.index === 4 && data.cell.section === 'body') {
-          const link = this.selectedCourseList[data.row.index].syllabus;
-          doc.setTextColor(0, 0, 255);
-          doc.textWithLink('Studieplan', data.cell.x + 2, data.cell.y + 10, { url: link });
-          doc.setTextColor(0, 0, 0);
+        head: head,
+        body: data,
+        startY: startY,
+        margin: { top: 40 },
+        styles: {
+            overflow: 'linebreak',
+            cellPadding: { top: 5, bottom: 5, left: 5, right: 5 }
+        },
+        pageBreak: 'auto',
+        didDrawPage: (data :any) => {
+            // Add header on each new page
+            doc.setFontSize(18);
+            doc.text(title, 14, 22);
+            doc.setFontSize(10);
+            doc.text(`PDF Skapad: ${currentDate}`, 14, 30);
+        },
+        didDrawCell: (data : any) => {
+            if (data.column.index === 4 && data.cell.section === 'body') {
+                const link = this.selectedCourseList[data.row.index].syllabus;
+                doc.setTextColor(0, 0, 255);
+                // Position text within the cell, respecting padding
+                const textX = data.cell.x + data.cell.padding('left');
+                const textY = data.cell.y + data.cell.height / 2 + 2; // Vertically center the text
+                doc.textWithLink('Studieplan', textX, textY, { url: link });
+                doc.setTextColor(0, 0, 0);
+            }
         }
-      }
     });
-  
-    // Lägg till sidfot med totala poäng i slutet av tabellen
-    const totalPoints = `Totala högeskolepoäng: ${this.totalPoints} HP`;
+
+    // Get the final Y position after drawing the table
     const finalY = (doc as any).lastAutoTable.finalY || 0;
- 
-    doc.setFontSize(15);
-    doc.text(totalPoints, 14, finalY + 20); 
- 
+
+    // Add footer with total points and number of courses
+    const totalPoints = `Totala högskolepoäng: ${this.totalPoints} HP`;
     const numberOfSelectedCourses = `Antal Kurser: ${this.numberOfSelectedCourses}`;
     
     doc.setFontSize(15);
-    doc.text(numberOfSelectedCourses, 14, finalY + 10); 
-  
+
+    // Check if there is enough space on the current page for the footer
+    if (finalY + 30 > doc.internal.pageSize.height) {
+        doc.addPage();
+        doc.text(totalPoints, 14, 30);
+        doc.text(numberOfSelectedCourses, 14, 40);
+    } else {
+        doc.text(totalPoints, 14, finalY + 10);
+        doc.text(numberOfSelectedCourses, 14, finalY + 20);
+    }
+
     doc.save('Ramschema.pdf');
-  }
+}
+
+
   
   
   

@@ -39,7 +39,15 @@
   <br /><br />
   <div class="card">
     <!-- Table Component from Primeng-->
-    <p-table
+     <div  *ngIf="selectedCourseList.length === 0" class="no-courses">
+      <h2  >Mitt Ramschema</h2>
+      <p>Du har inga befinliga kurser, lägg till    <a routerLink="/education"
+        >Kurser
+        <i class="pi pi-external-link" style="margin-right: 4px"></i>
+      </a>.</p>
+     </div>
+    
+    <p-table *ngIf="selectedCourseList.length > 0"
       #dataTable
       dataKey="id"
       [value]="selectedCourseList"
@@ -51,10 +59,14 @@
       [rows]="10"
       [rowsPerPageOptions]="[5, 10, 40]"
       [globalFilterFields]="['courseCode', 'courseName', 'points', 'subject']"
-    >
+    >      
     <p-toast></p-toast>
       <!-- Caption Template to add search inputfield  -->
+   
       <ng-template pTemplate="caption" style="padding: 0">
+        <div class="flex align-items-center justify-content-between">
+          <h1>Mitt Ramschema</h1>
+        </div>
         <div class="flex filter">
           <div class="search">
             <p-inputGroup>
@@ -236,3 +248,5 @@
     <br />
   </div>
 </div>
+<!-- scroll to top -->
+<p-scrollTop styleClass="custom-scrolltop" [threshold]="200" icon="pi pi-arrow-up" />

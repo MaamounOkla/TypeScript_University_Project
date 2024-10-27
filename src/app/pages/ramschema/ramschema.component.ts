@@ -58,7 +58,6 @@ export class RamschemaComponent implements OnInit {
   numberOfSelectedCourses : number =0;
   constructor(private courseService: CourseService, private messageService: MessageService) {}
 
-   
   ngOnInit() {
     this.courseService.getCourses().subscribe((data) => {
       this.courseList = data;
@@ -110,6 +109,8 @@ export class RamschemaComponent implements OnInit {
     // Visa meddelande att det gick bra att ta bort kursen
     this.showSuccess();
   }
+
+  //Exportera PDF funktoin
   exportPDF() {
     const doc = new jsPDF();
     const title = "Mitt Ramschema";
@@ -127,67 +128,63 @@ export class RamschemaComponent implements OnInit {
         course.courseName,
         `${course.points} HP`,
         course.subject,
-        "" // Placeholder for "Studieplan" link
+        "" //plats för länk till studieplanen
     ]);
 
-    // Calculate the starting Y position for the table
-    let startY = 40;
+       // Beräkna start-Y-positionen för tabellen
+       let startY = 40;
 
-    // Draw the table with automatic page breaks
-    doc.autoTable({
-        head: head,
-        body: data,
-        startY: startY,
-        margin: { top: 40 },
-        styles: {
-            overflow: 'linebreak',
-            cellPadding: { top: 5, bottom: 5, left: 5, right: 5 }
-        },
-        pageBreak: 'auto',
-        didDrawPage: (data :any) => {
-            // Add header on each new page
-            doc.setFontSize(18);
-            doc.text(title, 14, 22);
-            doc.setFontSize(10);
-            doc.text(`PDF Skapad: ${currentDate}`, 14, 30);
-        },
-        didDrawCell: (data : any) => {
-            if (data.column.index === 4 && data.cell.section === 'body') {
-                const link = this.selectedCourseList[data.row.index].syllabus;
-                doc.setTextColor(0, 0, 255);
-                // Position text within the cell, respecting padding
-                const textX = data.cell.x + data.cell.padding('left');
-                const textY = data.cell.y + data.cell.height / 2 + 2; // Vertically center the text
-                doc.textWithLink('Studieplan', textX, textY, { url: link });
-                doc.setTextColor(0, 0, 0);
-            }
-        }
-    });
-
-    // Get the final Y position after drawing the table
-    const finalY = (doc as any).lastAutoTable.finalY || 0;
-
-    // Add footer with total points and number of courses
-    const totalPoints = `Totala högskolepoäng: ${this.totalPoints} HP`;
-    const numberOfSelectedCourses = `Antal Kurser: ${this.numberOfSelectedCourses}`;
-    
-    doc.setFontSize(15);
-
-    // Check if there is enough space on the current page for the footer
-    if (finalY + 30 > doc.internal.pageSize.height) {
-        doc.addPage();
-        doc.text(totalPoints, 14, 30);
-        doc.text(numberOfSelectedCourses, 14, 40);
-    } else {
-        doc.text(totalPoints, 14, finalY + 10);
-        doc.text(numberOfSelectedCourses, 14, finalY + 20);
-    }
-
-    doc.save('Ramschema.pdf');
-}
-
-
-  
-  
-  
-}
+       // Rita tabellen med automatiska sidbrytningar
+       doc.autoTable({
+           head: head,
+           body: data,
+           startY: startY,
+           margin: { top: 40 },
+           styles: {
+               overflow: 'linebreak',
+               cellPadding: { top: 5, bottom: 5, left: 5, right: 5 }
+           },
+           pageBreak: 'auto',
+           didDrawPage: (data :any) => {
+               // Lägg till rubrik på varje ny sida
+               doc.setFontSize(18);
+               doc.text(title, 14, 22);
+               doc.setFontSize(10);
+               doc.text(`PDF Skapad: ${currentDate}`, 14, 30);
+           },
+           didDrawCell: (data : any) => {
+               if (data.column.index === 4 && data.cell.section === 'body') {
+                   const link = this.selectedCourseList[data.row.index].syllabus;
+                   doc.setTextColor(0, 0, 255);
+                   // Placera texten inom cellen och respektera padding
+                   const textX = data.cell.x + data.cell.padding('left');
+                   // Vertikalt centrera texten
+                   const textY = data.cell.y + data.cell.height / 2 + 2; 
+                   doc.textWithLink('Studieplan', textX, textY, { url: link });
+                   doc.setTextColor(0, 0, 0);
+               }
+           }
+       });
+   
+       // Hämta den slutliga Y-positionen efter att ha ritat tabellen
+       const finalY = (doc as any).lastAutoTable.finalY || 0;
+   
+       // Lägg till sidfot med totala poäng och antal kurser
+       const totalPoints = `Totala högskolepoäng: ${this.totalPoints} HP`;
+       const numberOfSelectedCourses = `Antal Kurser: ${this.numberOfSelectedCourses}`;
+       
+       doc.setFontSize(15);
+   
+       // Kontrollera om det finns tillräckligt med utrymme på den aktuella sidan för sidfoten
+       if (finalY + 30 > doc.internal.pageSize.height) {
+           doc.addPage();
+           doc.text(totalPoints, 14, 30);
+           doc.text(numberOfSelectedCourses, 14, 40);
+       } else {
+           doc.text(totalPoints, 14, finalY + 10);
+           doc.text(numberOfSelectedCourses, 14, finalY + 20);
+       }
+   
+       doc.save('Ramschema.pdf');
+   }
+  }
